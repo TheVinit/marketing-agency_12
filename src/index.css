@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+/* ─── Design Tokens ───────────────────────────────────────────────────── */
+:root {
+  --bg: #f5f3ef;
+  --bg-alt: #edeae4;
+  --fg: #0a0a0a;
+  --gold: #c5a059;
+  --gold-light: #d4af37;
+  --gold-dark: #8a6b1f;
+  --muted: #6b7280;
+  --white: #ffffff;
+  --black: #000000;
+
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, .05);
+  --shadow-hover: 0 24px 56px rgba(197, 160, 89, .14);
+  --shadow-pill: 0 40px 80px rgba(0, 0, 0, .35), 0 0 0 1px rgba(255, 255, 255, .05) inset;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', 'Times New Roman', serif;
+
+  --transition-base: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-lux-bg: var(--bg);
+  --color-lux-bg-secondary: var(--bg-alt);
+  --color-lux-gold: var(--gold);
+  --color-lux-gold-light: var(--gold-light);
+  --color-lux-gold-dark: var(--gold-dark);
+  --color-lux-muted: var(--muted);
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(197, 160, 89, .25);
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────── */
+.font-heading {
+  font-family: var(--font-serif);
+}
+
+/* ─── Gold Gradient Text ─────────────────────────────────────────────── */
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #c5a059 50%, #8a6b1f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* ─── Glass Card ─────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-card);
+}
+
+/* ─── Section Spacing ────────────────────────────────────────────────── */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* ─── Hero Background (warm radial gradient like the reference) ──────── */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 10%, #ddd8cc 0%, #e8e3d8 35%, #ede9e1 70%, #f0ece4 100%);
+}
+
+/* ─── Hero Black Pill Container ──────────────────────────────────────── */
+.hero-pill {
+  position: relative;
+  background: #000000;
+  border-radius: 52px;
+  box-shadow: var(--shadow-pill);
+  overflow: hidden;
+}
+
+/* Inner ambient glow inside pill */
+.hero-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(197, 160, 89, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Service Cards ──────────────────────────────────────────────────── */
+.service-card {
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+  overflow: hidden;
+}
+
+.service-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-6px);
+  border-color: rgba(197, 160, 89, 0.25);
+}
+
+/* ─── Underline Inputs ───────────────────────────────────────────────── */
+.field-underline {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field-underline:focus {
+  border-bottom-color: var(--gold);
+}
+
+/* ─── Scrollbar Hide ─────────────────────────────────────────────────── */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Gold Glow ─────────────────────────────────────────────────────── */
+.gold-glow {
+  box-shadow: 0 10px 40px rgba(197, 160, 89, 0.18);
+}
+
+/* ─── KEYFRAME ANIMATIONS ─────────────────────────────────────────────── */
+
+/* Floating glow orb — used inside hero background */
+@keyframes floatOrb {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-24px) scale(1.08);
+    opacity: 0.9;
+  }
+}
+
+/* Slow rotation ring */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 30px 6px rgba(197, 160, 89, 0.25);
+  }
+}
+
+/* Fade up (used with Tailwind motion classes as fallback) */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shimmer for gold lines */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ─── Decorative Orbs (hero BG floating elements) ───────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: floatOrb 8s ease-in-out infinite;
+}
+
+.orb-gold {
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.35) 0%, transparent 70%);
+}
+
+.orb-white {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+}
+
+/* ─── Shimmer gold line (decorative) ───────────────────────────────── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  background-size: 200%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ─── Nav link underline animation ─────────────────────────────────── */
+.nav-link {
+  position: relative;
+  transition: color var(--transition-base);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── Button hover lift ─────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--white);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  transition: background var(--transition-base), color var(--transition-base),
+    transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(197, 160, 89, 0.35);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--black);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  transition: border-color var(--transition-base), background var(--transition-base),
+    transform var(--transition-base);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  background: rgba(197, 160, 89, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ─── White card with hover lift ───────────────────────────────────── */
+.card-white {
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-base), transform var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.card-white:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+  border-color: rgba(197, 160, 89, 0.2);
+}
+
+/* ─── Section label (small uppercase gold tag) ──────────────────────── */
+.section-tag {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  display: block;
+}
+
+/* ─── Horizontal scroll container ───────────────────────────────────── */
+.scroll-x {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-x>* {
+  scroll-snap-align: start;
+}
